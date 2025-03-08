@@ -4,6 +4,7 @@ import pickle
 import faiss
 import numpy as np
 import time
+from fpdf import FPDF
 
 def load_quotes_and_embeddings():
     """Load all quotes and generate Gemini embeddings"""
@@ -103,10 +104,28 @@ Maintain academic tone while directly analyzing quotes. Highlight connections be
     response = model.generate_content(prompt)
     return response.text
 
+def txt_to_pdf(txt_file, pdf_file):
+    pdf = FPDF()
+    pdf.set_auto_page_break(auto=True, margin=15)
+    pdf.add_page()
+
+    pdf.set_font("Arial", size=12)
+
+    # Open the text file
+    with open(txt_file, "r") as file:
+        for line in file:
+            pdf.cell(200, 10, txt=line, ln=True)
+
+    # Output the pdf
+    pdf.output(pdf_file)
+
 def save_essay(essay_text):
     # Save essay with enhanced formatting
     with open("social_isolation_analysis.txt", "w") as f:
         f.write(essay_text)
+        
+    txt_to_pdf("social_isolation_analysis.txt", "social_isolation_analysis.pdf")
+
 
 if __name__ == "__main__":
     essay = generate_social_isolation_essay()
