@@ -5,3 +5,7 @@ Running instructions:
  - Ensure requirements are fulfilled
  - Books are in **books** directory
  - Run **main.py**
+
+Outputs
+- social_isolation_analysis.pdf
+- social_isolation_analysis.txt
